@@ -1,17 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     mode:'development',
     entry: {
-        bundle: path.resolve(__dirname, 'src/index.js'),
+        index: path.resolve(__dirname, 'src/index.js'),
     },
     output:{
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name][contenthash].js',
-        clean: true,
-        assetModuleFilename: '[name][ext]'
+        clean: true
     }, 
     devtool: 'source-map',
     devServer:{
@@ -27,31 +27,42 @@ module.exports = {
     module:{
         rules:[
             {
-                test: /\.scss$/,
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.s[ac]ss$/,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
+            {
+                test:/\.(png|svg|jpg|jpeg|gif)$/i,
+                type:'asset/resource'
             },
             {
                 test:/\.js$/,
                 exclude: /node_modules/,
                 use:{
                     loader: 'babel-loader',
-                    options: {
-                        presets:['@bable/preset-env'],
-                    }
+                    // options: {
+                    //     presets:['@bable/preset-env'],
+                    // }
                 }
-            },
-            {
-                test:/\.(png|svg|jpg|jpeg|gif)$/i,
-                type:'asset/resource'
             }
         ]
     },
     plugins:[
         new HtmlWebpackPlugin({
-            title: 'Webpack App',
-            filename: 'index.html',
-            template: 'src/index.html'
+            template:"./src/index.html",
+            chunks: ["index"],
+            filename: "index.html"
         }),
-        new BundleAnalyzerPlugin(),
+        new CopyPlugin({
+            patterns:[
+                {
+                    from:path.resolve(__dirname, "./src/assets/images"),
+                    to: path.resolve(__dirname, "dist")
+                }
+            ]
+        })  
     ]
 }
