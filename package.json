@@ -4,7 +4,8 @@
   "description": "Webpack configuration for building JavaScript applications",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "dev": "webpack --config webpack.config.js --mode development"
   },
   "repository": {
     "type": "git",
@@ -20,13 +21,19 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "babel-loader": "^9.2.1",
+    "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
     "loader": "^2.1.1",
     "sass": "^1.78.0",
+    "sass-loader": "^16.0.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.94.0",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.7"
   }
 }

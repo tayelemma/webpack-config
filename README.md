@@ -1,6 +1,6 @@
 # webpack-config
 
-Webpack configuration for building JavaScript applications
+  Webpack configuration for building JavaScript applications
 
 ## This webpack configuration uses the following features
  - Plugins
@@ -12,10 +12,8 @@ Webpack configuration for building JavaScript applications
  - Caching 
 
  ## Starting 
-    Run Dev Server (Port 3000)
+    npx webpack serve (Port 3000)
 
+
+## Build for development
     npm run dev
-
-## Build for production
-
-npm run build
